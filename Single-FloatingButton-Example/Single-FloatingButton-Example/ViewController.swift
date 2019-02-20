@@ -10,9 +10,17 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    var floatingButton: FloatingButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
+        self.floatingButton = FloatingButton(view: self.view, target: nil, action: #selector(action))
+    }
+    
+    func action() {
+        print("hello world")
     }
 
     override func didReceiveMemoryWarning() {

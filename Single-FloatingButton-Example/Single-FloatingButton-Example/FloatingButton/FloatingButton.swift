@@ -13,17 +13,17 @@ class FloatingButton {
     private var button: UIButton
     private var overlayView: UIView
     
-    init(controller: UINavigationController, target: Any?, action: Selector) {
+    init(view: UIView, color: UIColor=UIColor.groupTableViewBackground, image: UIImage?=nil, target: Any?, action: Selector) {
         let screenSize: CGRect = UIScreen.main.bounds
         let frame = CGRect(x: screenSize.width-75,
-                           y: screenSize.height-120,
+                           y: screenSize.height-75,
                            width: 50,
                            height: 50)
         self.overlayView = UIView(frame: frame)
         self.overlayView.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0)
         self.button = UIButton(type: UIButtonType.system) as UIButton
         self.button.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
-        self.button.backgroundColor = UIColor.groupTableViewBackground
+        self.button.backgroundColor = color
         self.button.tintColor = UIColor.black
         
         self.button.layer.cornerRadius = 25
@@ -32,10 +32,15 @@ class FloatingButton {
         self.button.layer.shadowOpacity = 1.0
         self.button.layer.shadowRadius = 0.0
         
-        self.button.setImage(UIImage(named: "write"), for: .normal)
+        if let image = image {
+            self.button.setImage(image, for: .normal)
+        } else {
+            self.button.setTitle("+", for: .normal)
+        }
+        
         self.button.addTarget(target, action: action, for: UIControlEvents.touchUpInside)
         self.overlayView.addSubview(self.button)
-        controller.view.addSubview(overlayView)
+        view.addSubview(overlayView)
     }
     
     func delete(view: UIView) {
